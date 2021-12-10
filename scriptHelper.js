@@ -17,11 +17,35 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 }
 
 function validateInput(testInput) {
-   
+    if (testInput === '') {
+        return 'Empty';
+    }
+    else if (isNaN(testInput)) {
+        return 'Not a Number';
+    }
+    else {
+        return 'Number';
+    }
 }
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-   
+    pilot = document.querySelector('input[name=pilotName]').value;
+    copilot = document.querySelector('input[name=copilotName]').value;
+    fuelLevel= document.querySelector('input[name=fuelLevel]').value;
+    cargoLevel = document.querySelector('input[name=cargoMass]').value;
+
+    if (validateInput(pilot) === 'Empty' || validateInput(copilot) === 'Empty' || validateInput(fuelLevel) === 'Empty' || validateInput(cargoLevel) === 'Empty') {
+        alert('Fill all fields.');
+    }
+
+    if (validateInput(fuelLevel) === 'Not a Number' || validateInput(cargoLevel) === 'Not a Number') {
+        alert('Fuel and/or Cargo Inputs should be numbers.');
+    }
+
+    if (validateInput(pilot) === 'Number' || validateInput(copilot) === 'Number') {
+        alert('Pilot and/or Copilot names cannot be numbers, unless you\'re Elon Musk\'s son.');
+
+    }
 }
 
 async function myFetch() {
