@@ -24,7 +24,7 @@ function validateInput(testInput) {
         return 'Not a Number';
     }
     else {
-        return 'Number';
+        return 'Is a Number';
     }
 }
 
