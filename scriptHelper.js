@@ -38,6 +38,7 @@ function formSubmission(document, faultyItems, pilot, copilot, fuelLevel, cargoL
     let pilotcheck = false
     let fuelcheck = false
     let cargocheck = false
+    launchStatusCheck.style.visibility = 'visible'
 
 
     if (validateInput(pilot) === 'Empty' || validateInput(copilot) === 'Empty' || validateInput(fuelLevel) === 'Empty' || validateInput(cargoLevel) === 'Empty') {
