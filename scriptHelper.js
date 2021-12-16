@@ -3,18 +3,19 @@ require('isomorphic-fetch');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
    // Here is the HTML formatting for our mission target div.
-   /*
-                <h2>Mission Destination</h2>
-                <ol>
-                    <li>Name: </li>
-                    <li>Diameter: </li>
-                    <li>Star: ${star}</li>
-                    <li>Distance from Earth: </li>
-                    <li>Number of Moons: </li>
-                </ol>
-                <img src="">
-   */
-}
+    let missionTarget = document.getElementById('missionTarget')
+    missionTarget.innerHTML = `
+        <h2>Mission Destination</h2>
+        <ol>
+            <li>Name: ${name} </li>
+            <li>Diameter: ${diameter} </li>
+            <li>Star: ${star}</li>
+            <li>Distance from Earth: ${distance} </li>
+            <li>Number of Moons: ${moons} </li>
+        </ol>
+        <img src=${imageUrl}>
+        `
+};
 
 function validateInput(testInput) {
     if (testInput === '') {
@@ -34,13 +35,15 @@ function formSubmission(document, faultyItems, pilot, copilot, fuelLevel, cargoL
     let fuelresult= ''
     let cargoresult = ''
     let launchStatus = document.getElementById('launchStatus')
-    let pilotcheck
-    let fuelcheck
-    let cargocheck
+    let pilotcheck = false
+    let fuelcheck = false
+    let cargocheck = false
 
 
     if (validateInput(pilot) === 'Empty' || validateInput(copilot) === 'Empty' || validateInput(fuelLevel) === 'Empty' || validateInput(cargoLevel) === 'Empty') {
         alert('Fill all fields.');
+        pilotStatus.innerHTML = 'Pilot not ready.'
+        copilotStatus.innerHTML = 'Co-pilot not ready.'
     }
 
     if (validateInput(fuelLevel) === 'Not a Number' || validateInput(cargoLevel) === 'Not a Number') {
@@ -60,6 +63,7 @@ function formSubmission(document, faultyItems, pilot, copilot, fuelLevel, cargoL
     }
     else {
         fuelStatus.innerHTML = 'Fuel level sufficient for launch.'
+        fuelcheck = true
     }
 
     let cargoStatus = document.getElementById('cargoStatus')
@@ -71,21 +75,26 @@ function formSubmission(document, faultyItems, pilot, copilot, fuelLevel, cargoL
     }
     else {
         cargoStatus.innerHTML = 'Cargo Mass sufficient for launch.'
+        cargocheck = true
     }
+
+    let pilotStatus = document.getElementById('pilotStatus')
+    let copilotStatus = document.getElementById('copilotStatus')
 
     if (validateInput(pilot) === 'Is a Number' || validateInput(copilot) === 'Is a Number') {
         alert('Pilot and/or Copilot names cannot be numbers, unless you\'re Elon Musk\'s son.');
+        pilotStatus.innerHTML = 'Pilot not ready.'
+        copilotStatus.innerHTML = 'Co-pilot not ready.'
     }
     else {
         pilotresult = pilot
         copilotresult = copilot
-        let pilotStatus = document.getElementById('pilotStatus')
-        let copilotStatus = document.getElementById('copilotStatus')
         pilotStatus.innerHTML = `Pilot ${pilotresult} ready.`
         copilotStatus.innerHTML = `Co-pilot ${copilotresult} ready.`
+        pilotcheck = true
     }
 
-    if ((pilotStatus.innerHTML = `Pilot ${pilotresult} ready.`) && (copilotStatus.innerHTML = `Co-pilot ${copilotresult} ready.`) && (cargoStatus.innerHTML = 'Cargo Mass sufficient for launch.') && (fuelStatus.innerHTML = 'Fuel level sufficient for launch.')) {
+    if (pilotcheck && cargocheck && fuelcheck) {
         launchStatus.style.color = 'green'
         launchStatus.innerHTML = 'Shuttle is ready for launch'
         faultyItems.style.visibility = 'hidden'
@@ -95,13 +104,16 @@ function formSubmission(document, faultyItems, pilot, copilot, fuelLevel, cargoL
 async function myFetch() {
     let planetsReturned;
 
-    planetsReturned = await fetch().then( function(response) {
-        });
+    planetsReturned = await fetch('https://handlers.education.launchcode.org/static/planets.json').then( function(response) {
+        return response.json();
+    });
 
     return planetsReturned;
 }
 
 function pickPlanet(planets) {
+    let i = Math.floor(Math.random() * planets.length)
+    return planets[i];
 }
 
 module.exports.addDestinationInfo = addDestinationInfo;
