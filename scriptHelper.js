@@ -57,24 +57,24 @@ function formSubmission(document, faultyItems, pilot, copilot, fuelLevel, cargoL
     let fuelStatus = document.getElementById('fuelStatus');
     if (fuelresult < 10000) {
          faultyItems.style.visibility = 'visible';
-         fuelStatus.innerHTML = 'Fuel level too low to launch.';
+         fuelStatus.innerHTML = 'Fuel level too low for launch';
          launchStatus.innerHTML = 'Shuttle Not Ready for Launch';
-         launchStatus.style.color = 'red';
+         launchStatus.style.color = 'rgb(199, 37, 78)';
     }
     else {
-        fuelStatus.innerHTML = 'Fuel level sufficient for launch.'
+        fuelStatus.innerHTML = 'Fuel level high enough for launch'
         fuelcheck = true
     }
 
     let cargoStatus = document.getElementById('cargoStatus')
     if (cargoresult > 10000) {
         faultyItems.style.visibility = 'visible';
-        cargoStatus.innerHTML = 'Cargo Mass exceeds limit for launch.';
+        cargoStatus.innerHTML = 'Cargo mass too heavy for launch';
         launchStatus.innerHTML = 'Shuttle Not Ready for Launch';
-        launchStatus.style.color = 'red';
+        launchStatus.style.color = 'rgb(199, 37, 78)';
     }
     else {
-        cargoStatus.innerHTML = 'Cargo Mass sufficient for launch.'
+        cargoStatus.innerHTML = 'Cargo mass low enough for launch'
         cargocheck = true
     }
 
@@ -89,14 +89,14 @@ function formSubmission(document, faultyItems, pilot, copilot, fuelLevel, cargoL
     else {
         pilotresult = pilot
         copilotresult = copilot
-        pilotStatus.innerHTML = `Pilot ${pilotresult} ready.`
-        copilotStatus.innerHTML = `Co-pilot ${copilotresult} ready.`
+        pilotStatus.innerHTML = `Pilot ${pilotresult} is ready for launch`
+        copilotStatus.innerHTML = `Co-pilot ${copilotresult} is ready for launch`
         pilotcheck = true
     }
 
     if (pilotcheck && cargocheck && fuelcheck) {
-        launchStatus.style.color = 'green'
-        launchStatus.innerHTML = 'Shuttle is ready for launch'
+        launchStatus.style.color = 'rgb(65, 159, 106)'
+        launchStatus.innerHTML = 'Shuttle is Ready for Launch'
         faultyItems.style.visibility = 'hidden'
     }
 }
