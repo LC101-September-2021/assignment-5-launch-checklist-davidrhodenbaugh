@@ -6,6 +6,8 @@ window.addEventListener("load", function() {
     form.addEventListener("submit", function(event){
         event.preventDefault();
 
+        list.style.visibility = 'hidden'
+
         let pilotName = document.querySelector('input[name=pilotName]').value;
         let copilotName = document.querySelector('input[name=copilotName]').value;
         let fuelLevel = document.querySelector('input[name=fuelLevel]').value;

@@ -98,6 +98,7 @@ function formSubmission(document, faultyItems, pilot, copilot, fuelLevel, cargoL
         launchStatus.style.color = 'rgb(65, 159, 106)'
         launchStatus.innerHTML = 'Shuttle is Ready for Launch'
         faultyItems.style.visibility = 'hidden'
+        list.style.visibility = 'visible'
     }
 }
 
