@@ -4,7 +4,7 @@ window.addEventListener("load", function() {
      let form = document.querySelector('form');
      launchStatusCheck.style.visibility = 'hidden'
      form.addEventListener("submit", function(event){
-         event.preventDefault();
+         //event.preventDefault();
  
          let pilotName = document.querySelector('input[name=pilotName]').value;
          let copilotName = document.querySelector('input[name=copilotName]').value;
@@ -12,7 +12,7 @@ window.addEventListener("load", function() {
          let cargoMass = document.querySelector('input[name=cargoMass]').value;
          let faultyItems = document.getElementById('faultyItems');
  
-         formSubmission(document, faultyItems, pilotName, copilotName, fuelLevel, cargoMass);
+         formSubmission(document, faultyItems, pilotName, copilotName, fuelLevel, cargoMass, event);
      });
  
     let listedPlanets;
